@@ -27,11 +27,30 @@
 </template>
 
 <script>
+import { watch, computed } from "vue";
 export default {
   props: {
     ProjectData: Object,
   },
-  setup() {
+  setup(props, { emit }) {
+    // const isChanged = ref(false);
+    // const instance = getCurrentInstance();
+    const ProjectObject = computed(() => {
+      return props.ProjectData;
+    });
+
+    watch(ProjectObject, () => {
+        // console.log("this runs")
+      emit("forceRerender");
+    });
+
+    // onMounted(()=>{
+    //     console.log(props.ProjectData)
+    // })
+
+    // const isChanged = computed(() => {
+    //   return props.ProjectData;
+    // });
     return {};
   },
 };
@@ -109,7 +128,7 @@ $color-text: #393939;
 }
 
 .p-anim {
-    position: relative;
+  position: relative;
 }
 
 .p-anim::after {

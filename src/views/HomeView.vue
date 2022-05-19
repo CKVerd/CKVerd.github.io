@@ -24,7 +24,11 @@
   <div class="project">
     <div class="hidden" ref="num_1"></div>
     <div v-if="showProject.shown" class="inner-project">
-      <ProjectView :ProjectData="checkData" :key="forceRerender" />
+      <ProjectView
+        :ProjectData="checkData"
+        :key="projectKey"
+        @forceRerender="forceRerender"
+      />
     </div>
     <img
       src="@/assets/images/pf_1.png"
@@ -34,7 +38,7 @@
     <img
       src="@/assets/images/pf_2.png"
       class="phone-background"
-      :style="`top: ${backgroundScroll}px`"
+      :style="`top: ${1000 - backgroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_3.png"
@@ -45,12 +49,27 @@
   <div class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_2"></div>
+    <img
+      src="@/assets/images/PAPP_1.png"
+      class="laptop-background"
+      :style="`top: ${1600 - backgroundScroll}px`"
+    />
+    <img
+      src="@/assets/images/PAPP_2.png"
+      class="phone-horizontal"
+      :style="`top: ${3400 - midScroll}px`"
+    />
   </div>
+  <div class="container"></div>
+  <div class="project">
+    <div class="hidden-bot" ref="num_3"></div>
+  </div>
+  <div class="container"></div>
 </template>
 
 <script>
 import ProjectView from "@/components/ProjectView";
-import { ref, onMounted, computed, watch } from "vue";
+import { ref, onMounted, computed } from "vue";
 export default {
   components: {
     ProjectView,
@@ -59,11 +78,13 @@ export default {
     const scrollData = ref(null);
     const num_1 = ref(null);
     const num_2 = ref(null);
-    const forceRerender = ref(0);
+    const num_3 = ref(null);
+    const projectKey = ref(0);
     const showProject = ref({
       shown: false,
       project_1: false,
       project_2: false,
+      project_3: false,
     });
     const ProjectData = ref([
       {
@@ -75,10 +96,17 @@ export default {
       },
       {
         num: "02",
-        name: "asd",
-        roles: "Lead Developer · UI Designer",
-        desc: "ASDASDAS WALA AKO MALAGAY ANO PWEDE LAGAY NA PROJECT AUISDHUASIHD",
-        type: "asdasdas asdasda",
+        name: "PAPP 2022",
+        roles: "Front-end Developer",
+        desc: "Microsite event for the annual convention of the Philippine Academy of Pediatric Pulmonologist",
+        type: "Web Application",
+      },
+      {
+        num: "03",
+        name: "Bitnacs Landing Page + Blog",
+        roles: "UI Developer · Wordpress Developer",
+        desc: "Landing Page for Bitnacs Inc. Inclusive of Contact Pages and Blog Posts",
+        type: "Web Application",
       },
     ]);
 
@@ -88,14 +116,12 @@ export default {
       }
       if (showProject.value.project_2) {
         return ProjectData.value[1];
+      }
+      if (showProject.value.project_3) {
+        return ProjectData.value[2];
       } else {
         return {};
       }
-    });
-
-    watch(showProject.value, (x) => {
-      console.log(x);
-      forceRerender.value += 1;
     });
 
     function handleScroll() {
@@ -114,6 +140,20 @@ export default {
       } else {
         showProject.value.project_2 = false;
       }
+
+      console.log(checkVisible(num_3.value));
+      if (checkVisible(num_3.value)) {
+        showProject.value.project_1 = false;
+        showProject.value.project_2 = false;
+        showProject.value.project_3 = true;
+      } else {
+        showProject.value.project_3 = false;
+      }
+    }
+
+    function forceRerender() {
+      // console.log("force render");
+      projectKey.value += 1;
     }
 
     // function checkScroll() {
@@ -151,7 +191,7 @@ export default {
     });
 
     const backgroundScroll = computed(() => {
-      return Math.max(600 - 0.25 * scrollData.value);
+      return 0.4 * scrollData.value;
     });
 
     const midScroll = computed(() => {
@@ -169,7 +209,9 @@ export default {
       showProject,
       ProjectData,
       num_2,
+      num_3,
       forceRerender,
+      projectKey,
       checkData,
       foregroundScroll,
       backgroundScroll,
@@ -283,7 +325,9 @@ export default {
   width: 10px;
   height: 10px;
   margin-top: auto;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
+  // background-color: red;
+  // z-index: 999;
 }
 .inner-project {
   width: 100%;
@@ -310,7 +354,17 @@ export default {
   right: 20%;
 }
 
+.laptop-background {
+  width: 800px;
+  position: absolute;
+  right: 2.5%;
+}
 
+.phone-horizontal {
+  width: 600px;
+  position: absolute;
+  right: 7.5%;
+}
 // .project-enter-from,
 // .project-leave-to {
 
