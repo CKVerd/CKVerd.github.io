@@ -57,12 +57,26 @@
     <img
       src="@/assets/images/PAPP_2.png"
       class="phone-horizontal"
-      :style="`top: ${3400 - midScroll}px`"
+      :style="`top: ${3450 - midScroll}px`"
     />
   </div>
   <div class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_3"></div>
+    <img
+      src="@/assets/images/Bitnacs_2.png"
+      class="phone-background"
+      :style="`top: ${5000 - midScroll}px`"
+    />
+    <img
+      src="@/assets/images/Bitnacs_1.png"
+      class="laptop-background"
+      :style="`top: ${2400 - backgroundScroll}px`"
+    />
+  </div>
+  <div class="container"></div>
+  <div class="project">
+    <div class="hidden-bot" ref="num_4"></div>
   </div>
   <div class="container"></div>
 </template>
@@ -79,6 +93,7 @@ export default {
     const num_1 = ref(null);
     const num_2 = ref(null);
     const num_3 = ref(null);
+    const num_4 = ref(null);
     const projectKey = ref(0);
     const showProject = ref({
       shown: false,
@@ -104,8 +119,15 @@ export default {
       {
         num: "03",
         name: "Bitnacs Landing Page + Blog",
-        roles: "UI Developer · Wordpress Developer",
+        roles: "Wordpress Developer · UI Designer ",
         desc: "Landing Page for Bitnacs Inc. Inclusive of Contact Pages and Blog Posts",
+        type: "Web Application",
+      },
+      {
+        num: "04",
+        name: "Kuriously Krafted - Landing Page",
+        roles: "Developer · UI Designer",
+        desc: "Mock Landing Page for the business Kuriously Krafted",
         type: "Web Application",
       },
     ]);
@@ -119,6 +141,9 @@ export default {
       }
       if (showProject.value.project_3) {
         return ProjectData.value[2];
+      }
+      if (showProject.value.project_4) {
+        return ProjectData.value[3];
       } else {
         return {};
       }
@@ -141,13 +166,21 @@ export default {
         showProject.value.project_2 = false;
       }
 
-      console.log(checkVisible(num_3.value));
       if (checkVisible(num_3.value)) {
         showProject.value.project_1 = false;
         showProject.value.project_2 = false;
         showProject.value.project_3 = true;
       } else {
         showProject.value.project_3 = false;
+      }
+
+      if (checkVisible(num_4.value)) {
+        showProject.value.project_1 = false;
+        showProject.value.project_2 = false;
+        showProject.value.project_3 = false;
+        showProject.value.project_4 = true;
+      } else {
+        showProject.value.project_4 = false;
       }
     }
 
@@ -210,6 +243,7 @@ export default {
       ProjectData,
       num_2,
       num_3,
+      num_4,
       forceRerender,
       projectKey,
       checkData,
