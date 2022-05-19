@@ -16,7 +16,7 @@
       >
       <p class="about-desc">
         I’m a front-end web developer with over 8 months of professional
-        experience in creating responsive web applications focusing on the
+        experience in creating web applications focusing on the
         minimialist approach
       </p>
     </div>
@@ -77,7 +77,23 @@
   <div class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_4"></div>
+        <img
+      src="@/assets/images/KK_3.png"
+      class="ipad-background"
+      :style="`top: ${3200 - backgroundScroll}px`"
+    />
+    <img
+      src="@/assets/images/KK_2.png"
+      class="phone-foreground-1"
+      :style="`top: ${4700 - foregroundScroll}px`"
+    />
+        <img
+      src="@/assets/images/KK_1.png"
+      class="laptop-mid"
+      :style="`top: ${6700 - midScroll}px`"
+    />
   </div>
+  <div class="container"></div>
   <div class="container"></div>
 </template>
 
@@ -125,7 +141,7 @@ export default {
       },
       {
         num: "04",
-        name: "Kuriously Krafted - Landing Page",
+        name: "Kuriously Krafted",
         roles: "Developer · UI Designer",
         desc: "Mock Landing Page for the business Kuriously Krafted",
         type: "Web Application",
@@ -376,8 +392,20 @@ export default {
   right: 20%;
 }
 
+.phone-foreground-1 {
+    width: 320px;
+  position: absolute;
+  right: 25.5%;
+}
+
 .phone-background {
   width: 250px;
+  position: absolute;
+  right: 5.5%;
+}
+
+.ipad-background {
+  width: 500px;
   position: absolute;
   right: 5.5%;
 }
@@ -390,6 +418,12 @@ export default {
 
 .laptop-background {
   width: 800px;
+  position: absolute;
+  right: 2.5%;
+}
+
+.laptop-mid {
+  width: 600px;
   position: absolute;
   right: 2.5%;
 }
