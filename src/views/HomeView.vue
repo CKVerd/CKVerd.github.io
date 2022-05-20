@@ -158,7 +158,7 @@ export default {
         num: "05",
         name: "Joke Generator",
         roles: "Developer · UI Designer",
-        desc: "An Application for generating one liners or two liner jokes implementing a Jokes API",
+        desc: "An Application for generating one liners or two liner jokes implementing a Jokes API WALA PA PICTURE",
         type: "Web Application",
       },
     ]);
@@ -445,8 +445,8 @@ export default {
   height: 10px;
   margin-top: auto;
   margin-bottom: 100px;
-  background-color: red;
-  z-index: 999;
+  // background-color: red;
+  // z-index: 999;
 }
 .inner-project {
   width: 100%;
