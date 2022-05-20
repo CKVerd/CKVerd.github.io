@@ -40,7 +40,7 @@ export default {
     });
 
     watch(ProjectObject, () => {
-        // console.log("this runs")
+      // console.log("this runs")
       emit("forceRerender");
     });
 
@@ -147,6 +147,10 @@ $color-text: #393939;
   height: fit-content;
 }
 @keyframes show {
+  20% {
+    left: 0;
+    width: 100%;
+  }
   65% {
     left: 100%;
     width: 1%;

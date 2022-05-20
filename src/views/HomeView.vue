@@ -16,8 +16,8 @@
       >
       <p class="about-desc">
         I’m a front-end web developer with over 8 months of professional
-        experience in creating web applications focusing on the
-        minimialist approach
+        experience in creating web applications focusing on the minimialist
+        approach
       </p>
     </div>
   </div>
@@ -33,7 +33,7 @@
     <img
       src="@/assets/images/pf_1.png"
       class="phone-foreground"
-      :style="`top: ${700 - foregroundScroll}px`"
+      :style="`top: ${1100 - foregroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_2.png"
@@ -77,7 +77,7 @@
   <div class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_4"></div>
-        <img
+    <img
       src="@/assets/images/KK_3.png"
       class="ipad-background"
       :style="`top: ${3200 - backgroundScroll}px`"
@@ -87,13 +87,16 @@
       class="phone-foreground-1"
       :style="`top: ${4700 - foregroundScroll}px`"
     />
-        <img
+    <img
       src="@/assets/images/KK_1.png"
       class="laptop-mid"
       :style="`top: ${6700 - midScroll}px`"
     />
   </div>
   <div class="container"></div>
+  <div class="project">
+    <div class="hidden-bot" ref="num_5"></div>
+  </div>
   <div class="container"></div>
 </template>
 
@@ -110,12 +113,15 @@ export default {
     const num_2 = ref(null);
     const num_3 = ref(null);
     const num_4 = ref(null);
+    const num_5 = ref(null);
     const projectKey = ref(0);
     const showProject = ref({
       shown: false,
       project_1: false,
       project_2: false,
       project_3: false,
+      project_4: false,
+      project_5: false,
     });
     const ProjectData = ref([
       {
@@ -143,7 +149,14 @@ export default {
         num: "04",
         name: "Kuriously Krafted",
         roles: "Developer · UI Designer",
-        desc: "Mock Landing Page for the business Kuriously Krafted",
+        desc: "Mock Landing Page and Catalog view for the business Kuriously Krafted",
+        type: "Web Application",
+      },
+      {
+        num: "05",
+        name: "Joke Generator",
+        roles: "Developer · UI Designer",
+        desc: "An Application for generating one liners or two liner jokes implementing a Jokes API",
         type: "Web Application",
       },
     ]);
@@ -160,14 +173,22 @@ export default {
       }
       if (showProject.value.project_4) {
         return ProjectData.value[3];
+      }
+      if (showProject.value.project_5) {
+        return ProjectData.value[4];
       } else {
         return {};
       }
     });
 
     function handleScroll() {
-      scrollData.value = window.scrollY;
-      // console.log(scrollData.value);
+      var scrollValue = window.scrollY;
+      // scrollData.value = window.scrollY;
+      scrollData.value = (scrollValue - window.innerHeight);
+      // console.log(scrollData.value)
+      // scrollData.value = window.scrollY;
+      // scrollData.value = (scrollValue + window.innerHeight) / 100;
+
       if (checkVisible(num_1.value)) {
         showProject.value.shown = true;
         showProject.value.project_1 = true;
@@ -191,12 +212,23 @@ export default {
       }
 
       if (checkVisible(num_4.value)) {
+        // console.log("this runs");
         showProject.value.project_1 = false;
         showProject.value.project_2 = false;
         showProject.value.project_3 = false;
         showProject.value.project_4 = true;
       } else {
         showProject.value.project_4 = false;
+      }
+
+      if (checkVisible(num_5.value)) {
+        showProject.value.project_1 = false;
+        showProject.value.project_2 = false;
+        showProject.value.project_3 = false;
+        showProject.value.project_4 = false;
+        showProject.value.project_5 = true;
+      } else {
+        showProject.value.project_5 = false;
       }
     }
 
@@ -260,6 +292,7 @@ export default {
       num_2,
       num_3,
       num_4,
+      num_5,
       forceRerender,
       projectKey,
       checkData,
@@ -376,8 +409,8 @@ export default {
   height: 10px;
   margin-top: auto;
   margin-bottom: 100px;
-  // background-color: red;
-  // z-index: 999;
+  background-color: red;
+  z-index: 999;
 }
 .inner-project {
   width: 100%;
@@ -387,49 +420,49 @@ export default {
 }
 
 .phone-foreground {
-  width: 320px;
+  width: 17%;
   position: absolute;
   right: 20%;
 }
 
 .phone-foreground-1 {
-    width: 320px;
+  width: 17%;
   position: absolute;
-  right: 25.5%;
+  right: 24.75%;
 }
 
 .phone-background {
-  width: 250px;
+  width: 14%;
   position: absolute;
   right: 5.5%;
 }
 
 .ipad-background {
-  width: 500px;
+  width: 28%;
   position: absolute;
   right: 5.5%;
 }
 
 .phone-mid {
-  width: 350px;
+  width: 16%;
   position: absolute;
-  right: 20%;
+  right: 17%;
 }
 
 .laptop-background {
-  width: 800px;
+  width: 43%;
   position: absolute;
   right: 2.5%;
 }
 
 .laptop-mid {
-  width: 600px;
+  width: 43%;
   position: absolute;
   right: 2.5%;
 }
 
 .phone-horizontal {
-  width: 600px;
+  width: 32%;
   position: absolute;
   right: 7.5%;
 }
