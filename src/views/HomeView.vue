@@ -33,17 +33,17 @@
     <img
       src="@/assets/images/pf_1.png"
       class="phone-foreground"
-      :style="`top: ${1100 - foregroundScroll}px`"
+      :style="`top: ${700 - foregroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_2.png"
       class="phone-background"
-      :style="`top: ${1000 - backgroundScroll}px`"
+      :style="`top: ${500 - backgroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_3.png"
       class="phone-mid"
-      :style="`top: ${2000 - midScroll}px`"
+      :style="`top: ${1600 - midScroll}px`"
     />
   </div>
   <div class="container"></div>
@@ -109,6 +109,8 @@ export default {
   },
   setup() {
     const scrollData = ref(null);
+    const scrollValue = ref(0);
+    const siteHeight = ref(0);
     const num_1 = ref(null);
     const num_2 = ref(null);
     const num_3 = ref(null);
@@ -182,10 +184,12 @@ export default {
     });
 
     function handleScroll() {
-      var scrollValue = window.scrollY;
+      scrollValue.value = window.scrollY;
+      siteHeight.value = window.innerHeight;
       // scrollData.value = window.scrollY;
-      scrollData.value = (scrollValue - window.innerHeight);
-      // console.log(scrollData.value)
+      scrollData.value = scrollValue.value - siteHeight.value - 100;
+      // console.log(scrollData.value);
+      console.log(window.innerHeight);
       // scrollData.value = window.scrollY;
       // scrollData.value = (scrollValue + window.innerHeight) / 100;
 
@@ -258,24 +262,37 @@ export default {
     }
 
     const checkScroll = computed(() => {
-      if (scrollData.value > 150 && scrollData.value < 344) {
-        return (scrollData.value - 310) * 1.25;
-      } else if (scrollData.value >= 344) {
-        return 42.5;
+      if (scrollValue.value > 200 && scrollValue.value < 400) {
+        return (scrollValue.value - 300) * 0.55;
+      } else if (scrollValue.value >= 344) {
+        if (siteHeight.value <= 900) {
+          return 20;
+        } else {
+          return 42.5;
+        }
       } else {
         return -200;
       }
     });
 
     const foregroundScroll = computed(() => {
+      if (siteHeight.value <= 1000) {
+        return 0.55 * scrollData.value + 400;
+      }
       return 0.55 * scrollData.value;
     });
 
     const backgroundScroll = computed(() => {
+      if (siteHeight.value <= 1000) {
+        return 0.4 * scrollData.value + 400;
+      }
       return 0.4 * scrollData.value;
     });
 
     const midScroll = computed(() => {
+      if (siteHeight.value <= 1000) {
+        return 0.75 * scrollData.value + 800;
+      }
       return 0.75 * scrollData.value;
     });
 
@@ -338,6 +355,9 @@ export default {
   font-size: 164px;
   font-weight: 100;
   animation: from-bottom 1s ease-in-out;
+  @include breakpoint(mobile) {
+    font-size: 75px;
+  }
 }
 
 .desc {
@@ -346,6 +366,9 @@ export default {
   animation: from-bottom 1.75s ease-in-out forwards;
   opacity: 0;
   z-index: 2;
+  @include breakpoint(mobile) {
+    font-size: 24px;
+  }
 }
 
 .hero {
@@ -363,6 +386,9 @@ export default {
   bottom: -160px;
   width: calc(100% + 50px);
   z-index: 1;
+  @include breakpoint(mobile) {
+    bottom: -175px;
+  }
 }
 
 .white-cover-secondary {
@@ -390,6 +416,10 @@ export default {
   transform: translateX(-200px);
   transition: 1s;
   transition-delay: 50ms;
+
+  @include breakpoint(mobile) {
+    font-size: 65px;
+  }
 }
 
 .about-desc {
@@ -397,6 +427,12 @@ export default {
   font-size: 40px;
   z-index: 2;
   padding-left: 30%;
+
+  @include breakpoint(mobile) {
+    font-size: 24px;
+    padding-left: 0%;
+    text-align: center;
+  }
 }
 
 .hidden {
@@ -446,7 +482,7 @@ export default {
 .phone-mid {
   width: 16%;
   position: absolute;
-  right: 17%;
+  right: 7.5%;
 }
 
 .laptop-background {

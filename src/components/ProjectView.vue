@@ -57,8 +57,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color-text: #393939;
-
 .first-half {
   display: flex;
   flex-direction: column;
@@ -99,6 +97,10 @@ $color-text: #393939;
 
 .name-text {
   font-size: 64px;
+
+  @include breakpoint(mobile) {
+    font-size: 32;
+  }
 }
 
 .role-text {

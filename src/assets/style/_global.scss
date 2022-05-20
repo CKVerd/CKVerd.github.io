@@ -1,0 +1,22 @@
+$color-text: #393939;
+
+// BREAKPOINT MIXINS
+@mixin breakpoint($point) {
+  @if $point == mobile {
+    @media screen and (max-width: 900px) {
+      @content;
+    }
+  } @else if $point == tablet {
+    @media screen and (min-width: 900px) {
+      @content;
+    }
+  } @else if $point == laptop {
+    @media screen and (min-width: 1300px) {
+      @content;
+    }
+  } @else if $point == desktop {
+    @media screen and (min-width: 1800px) {
+      @content;
+    }
+  }
+}
