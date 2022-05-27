@@ -15,35 +15,57 @@
         >ABOUT ME</span
       >
       <p class="about-desc">
-        I’m a front-end web developer with over 8 months of professional
-        experience in creating web applications focusing on the minimialist
-        approach
+        I’m a front-end web developer with professional experience in creating
+        web applications focusing on the minimialist approach
       </p>
     </div>
   </div>
-  <div class="project">
+  <div class="project-1">
     <div class="hidden" ref="num_1"></div>
-    <div v-if="showProject.shown" class="inner-project">
-      <ProjectView
-        :ProjectData="checkData"
-        :key="projectKey"
-        @forceRerender="forceRerender"
-      />
-    </div>
+    <Transition name="fade" mode="out-in">
+      <div v-if="showProject.shown" class="inner-project">
+        <ProjectView
+          :ProjectData="checkData"
+          :key="projectKey"
+          @forceRerender="forceRerender"
+        />
+      </div>
+      <div v-else class="inner-project">
+        <span class="contact-text">CONTACT</span>
+        <div class="contact-nav">
+          <form action="mailto:verdad.cyrilken@gmail.com" target="_blank">
+            <button class="contact-button">
+              <img src="@/assets/images/email.png" class="contact-img" />
+            </button>
+          </form>
+          <form action="https://github.com/CKVerd" target="_blank">
+            <button class="contact-button">
+              <img src="@/assets/images/github.png" class="contact-img" />
+            </button>
+          </form>
+          <form action="https://www.linkedin.com/in/ckverdad/" target="_blank">
+            <button class="contact-button">
+              <img src="@/assets/images/linkedin.png" class="contact-img" />
+            </button>
+          </form>
+        </div>
+        <div class="footer">(c) Cyril Verdad 2020</div>
+      </div>
+    </Transition>
     <img
       src="@/assets/images/pf_1.png"
       class="phone-foreground"
-      :style="`top: ${700 - foregroundScroll}px`"
+      :style="`top: ${800 - foregroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_2.png"
       class="phone-background"
-      :style="`top: ${500 - backgroundScroll}px`"
+      :style="`top: ${600 - backgroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_3.png"
       class="phone-mid"
-      :style="`top: ${1600 - midScroll}px`"
+      :style="`top: ${1500 - midScroll}px`"
     />
   </div>
   <div class="container"></div>
@@ -64,14 +86,14 @@
   <div class="project">
     <div class="hidden-bot" ref="num_3"></div>
     <img
-      src="@/assets/images/Bitnacs_2.png"
-      class="phone-background"
-      :style="`top: ${5000 - midScroll}px`"
-    />
-    <img
       src="@/assets/images/Bitnacs_1.png"
       class="laptop-background"
       :style="`top: ${2400 - backgroundScroll}px`"
+    />
+    <img
+      src="@/assets/images/Bitnacs_2.png"
+      class="phone-background"
+      :style="`top: ${4500 - midScroll}px`"
     />
   </div>
   <div class="container"></div>
@@ -80,12 +102,12 @@
     <img
       src="@/assets/images/KK_3.png"
       class="ipad-background"
-      :style="`top: ${3200 - backgroundScroll}px`"
+      :style="`top: ${3300 - backgroundScroll}px`"
     />
     <img
       src="@/assets/images/KK_2.png"
       class="phone-foreground-1"
-      :style="`top: ${4700 - foregroundScroll}px`"
+      :style="`top: ${4600 - foregroundScroll}px`"
     />
     <img
       src="@/assets/images/KK_1.png"
@@ -96,13 +118,22 @@
   <div class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_5"></div>
+    <img
+      src="@/assets/images/joke_1.png"
+      class="laptop-mid"
+      :style="`top: ${7900 - midScroll}px`"
+    />
   </div>
   <div class="container"></div>
+  <div class="project">
+    <div class="hidden-bot" ref="end"></div>
+  </div>
 </template>
 
 <script>
 import ProjectView from "@/components/ProjectView";
 import { ref, onMounted, computed } from "vue";
+
 export default {
   components: {
     ProjectView,
@@ -116,9 +147,10 @@ export default {
     const num_3 = ref(null);
     const num_4 = ref(null);
     const num_5 = ref(null);
+    const end = ref(null);
     const projectKey = ref(0);
     const showProject = ref({
-      shown: false,
+      shown: true,
       project_1: false,
       project_2: false,
       project_3: false,
@@ -158,7 +190,7 @@ export default {
         num: "05",
         name: "Joke Generator",
         roles: "Developer · UI Designer",
-        desc: "An Application for generating one liners or two liner jokes implementing a Jokes API WALA PA PICTURE",
+        desc: "An Application for generating one liners or two liner jokes implementing a Jokes API",
         type: "Web Application",
       },
     ]);
@@ -189,7 +221,6 @@ export default {
       // scrollData.value = window.scrollY;
       scrollData.value = scrollValue.value - siteHeight.value - 100;
       // console.log(scrollData.value);
-      console.log(window.innerHeight);
       // scrollData.value = window.scrollY;
       // scrollData.value = (scrollValue + window.innerHeight) / 100;
 
@@ -233,6 +264,10 @@ export default {
         showProject.value.project_5 = true;
       } else {
         showProject.value.project_5 = false;
+      }
+
+      if (checkVisible(end.value)) {
+        showProject.value.shown = false;
       }
     }
 
@@ -310,6 +345,7 @@ export default {
       num_3,
       num_4,
       num_5,
+      end,
       forceRerender,
       projectKey,
       checkData,
@@ -348,6 +384,16 @@ export default {
   flex-direction: column;
   position: sticky;
   top: 0;
+}
+
+.project-1 {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  z-index: 9999 !important;
 }
 
 .name {
@@ -422,6 +468,18 @@ export default {
   }
 }
 
+.contact-text {
+  font-family: "Bergen Sans Bold";
+  font-size: 250px;
+  color: #e6e6e6;
+  position: absolute;
+  z-index: 1;
+
+  @include breakpoint(mobile) {
+    font-size: 65px;
+  }
+}
+
 .about-desc {
   font-family: "Bergen Sans Regular";
   font-size: 40px;
@@ -453,12 +511,13 @@ export default {
   height: 100%;
   padding: 5% 5%;
   // animation: fade-in 0.6s ease-in;
+  position: relative;
 }
 
 .phone-foreground {
   width: 17%;
   position: absolute;
-  right: 20%;
+  right: 20.75%;
 }
 
 .phone-foreground-1 {
@@ -482,7 +541,7 @@ export default {
 .phone-mid {
   width: 16%;
   position: absolute;
-  right: 7.5%;
+  right: 4.5%;
 }
 
 .laptop-background {
@@ -516,4 +575,65 @@ export default {
 // .project-leave-active {
 //   transition: all 0.4s ease;
 // }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.contact-nav {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  width: 20%;
+  justify-content: space-around;
+}
+
+.contact-button {
+  padding: 15px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+  &:hover > .contact-img {
+    cursor: pointer;
+    filter: invert(31%) sepia(7%) saturate(0%) hue-rotate(280deg)
+      brightness(99%) contrast(94%);
+  }
+}
+
+.contact-img {
+  width: 50px;
+  height: 50px;
+  filter: invert(68%) sepia(1%) saturate(0%) hue-rotate(105deg) brightness(95%)
+    contrast(91%);
+  transition: all 0.4s ease;
+  &:hover {
+    pointer-events: all;
+  }
+}
+
+.relative {
+  position: relative;
+}
+
+.footer {
+  width: 100%;
+  height: fit-content;
+  background-color: #f0f0f0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  padding: 5px;
+  animation: from-bottom 1s ease-in-out;
+}
 </style>

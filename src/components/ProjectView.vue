@@ -62,7 +62,7 @@ export default {
   flex-direction: column;
   width: 60%;
   height: 100%;
-  background-color: white;
+  background-color: transparent; 
 }
 .text-semiBold {
   font-family: "Bergen Sans Bold";
