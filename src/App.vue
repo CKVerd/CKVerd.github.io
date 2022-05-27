@@ -62,4 +62,37 @@ html {
     opacity: 1;
   }
 }
+
+@keyframes shakeAppear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  30% {
+    transform: rotate(2.5deg);
+  }
+  40% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+  60% {
+    transform: rotate(-2.5deg);
+  }
+  70% {
+    transform: rotate(0deg);
+  }
+
+  80% {
+    transform: scale(1.075);
+  }
+  100% {
+    opacity: 1;
+  }
+}
 </style>

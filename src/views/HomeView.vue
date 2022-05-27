@@ -3,6 +3,7 @@
     <div class="hero">
       <h1 class="name">Cyril Verdad</h1>
       <h2 class="desc">Front-end Developer</h2>
+      <button class="resume-button">View Resume</button>
       <div class="white-cover"></div>
       <div class="white-cover-secondary"></div>
     </div>
@@ -55,17 +56,17 @@
     <img
       src="@/assets/images/pf_1.png"
       class="phone-foreground"
-      :style="`top: ${800 - foregroundScroll}px`"
+      :style="`top: ${1000 - foregroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_2.png"
       class="phone-background"
-      :style="`top: ${600 - backgroundScroll}px`"
+      :style="`top: ${800 - backgroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_3.png"
       class="phone-mid"
-      :style="`top: ${1500 - midScroll}px`"
+      :style="`top: ${1700 - midScroll}px`"
     />
   </div>
   <div class="container"></div>
@@ -417,6 +418,21 @@ export default {
   }
 }
 
+.resume-button {
+  z-index: 2;
+  margin-top: 20px;
+  background-color: transparent;
+  outline: none;
+  border: 2.5px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "Bergen Sans Regular";
+  font-size: 16px;
+  animation: shakeAppear 1.75s ease-in-out forwards;
+  animation-delay: 0.75s;
+  opacity: 0;
+}
+
 .hero {
   position: relative;
   display: flex;
@@ -635,5 +651,8 @@ export default {
   text-align: center;
   padding: 5px;
   animation: from-bottom 1s ease-in-out;
+    font-family: "Bergen Sans Regular";
 }
+
+
 </style>
