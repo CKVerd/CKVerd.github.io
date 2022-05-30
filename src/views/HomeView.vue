@@ -3,11 +3,12 @@
     <div class="hero">
       <h1 class="name">Cyril Verdad</h1>
       <h2 class="desc">Front-end Developer</h2>
-      <button class="resume-button">View Resume</button>
+      <button class="custom-btn">View Resume</button>
       <div class="white-cover"></div>
       <div class="white-cover-secondary"></div>
     </div>
   </div>
+  <ModalDialog :showModal="showModal" @close="showModal = false" :content="content"/>
   <div class="container-2" style="justify-content: flex-start">
     <div class="about">
       <span
@@ -29,6 +30,7 @@
           :ProjectData="checkData"
           :key="projectKey"
           @forceRerender="forceRerender"
+          @showPharmfinder="showPharmfinder"
         />
       </div>
       <div v-else class="inner-project">
@@ -36,17 +38,32 @@
         <div class="contact-nav">
           <form action="mailto:verdad.cyrilken@gmail.com" target="_blank">
             <button class="contact-button">
-              <img src="@/assets/images/email.png" class="contact-img" />
+              <img
+                src="@/assets/images/email.png"
+                class="contact-img"
+                alt="Send an Email"
+                title="Send an Email"
+              />
             </button>
           </form>
           <form action="https://github.com/CKVerd" target="_blank">
             <button class="contact-button">
-              <img src="@/assets/images/github.png" class="contact-img" />
+              <img
+                src="@/assets/images/github.png"
+                class="contact-img"
+                alt="Open github @CKVerd"
+                title="Open github @CKVerd"
+              />
             </button>
           </form>
           <form action="https://www.linkedin.com/in/ckverdad/" target="_blank">
             <button class="contact-button">
-              <img src="@/assets/images/linkedin.png" class="contact-img" />
+              <img
+                src="@/assets/images/linkedin.png"
+                class="contact-img"
+                alt="Open Linkedin @ckverdad"
+                title="Open Linkedin @ckverdad"
+              />
             </button>
           </form>
         </div>
@@ -61,7 +78,7 @@
     <img
       src="@/assets/images/pf_2.png"
       class="phone-background"
-      :style="`top: ${800 - backgroundScroll}px`"
+      :style="`top: ${700 - backgroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_3.png"
@@ -133,13 +150,17 @@
 
 <script>
 import ProjectView from "@/components/ProjectView";
+import ModalDialog from "@/components/ModalDialog.vue";
 import { ref, onMounted, computed } from "vue";
 
 export default {
   components: {
     ProjectView,
+    ModalDialog,
   },
   setup() {
+    const content = ref(null);
+    const showModal = ref(false);
     const scrollData = ref(null);
     const scrollValue = ref(0);
     const siteHeight = ref(0);
@@ -297,6 +318,11 @@ export default {
       );
     }
 
+    function showPharmfinder() {
+      showModal.value = true;
+      content.value = "PharmFinder"
+    }
+
     const checkScroll = computed(() => {
       if (scrollValue.value > 200 && scrollValue.value < 400) {
         return (scrollValue.value - 300) * 0.55;
@@ -310,6 +336,7 @@ export default {
         return -200;
       }
     });
+
 
     const foregroundScroll = computed(() => {
       if (siteHeight.value <= 1000) {
@@ -353,6 +380,9 @@ export default {
       foregroundScroll,
       backgroundScroll,
       midScroll,
+      showModal,
+      showPharmfinder,
+      content
     };
   },
 };
@@ -418,19 +448,26 @@ export default {
   }
 }
 
-.resume-button {
+.custom-btn {
   z-index: 2;
   margin-top: 20px;
   background-color: transparent;
   outline: none;
-  border: 2.5px solid black;
+  border: 2.5px solid $color-text;
   border-radius: 10px;
   padding: 10px;
   font-family: "Bergen Sans Regular";
   font-size: 16px;
   animation: shakeAppear 1.75s ease-in-out forwards;
-  animation-delay: 0.75s;
+  animation-delay: 1s;
   opacity: 0;
+  transition: all 0.4s ease;
+
+  &:hover {
+    background-color: $color-text;
+    color: white;
+    cursor: pointer;
+  }
 }
 
 .hero {
@@ -651,8 +688,6 @@ export default {
   text-align: center;
   padding: 5px;
   animation: from-bottom 1s ease-in-out;
-    font-family: "Bergen Sans Regular";
+  font-family: "Bergen Sans Regular";
 }
-
-
 </style>

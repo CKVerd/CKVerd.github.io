@@ -19,6 +19,22 @@
           {{ ProjectData.desc }}
         </p>
       </div>
+      <div class="anim btn-row">
+        <button
+          v-if="ProjectData.num === '01'"
+          class="custom-btn"
+          @click="$emit('showPharmfinder')"
+        >
+          View Prototype
+        </button>
+        <form
+          action="https://drive.google.com/file/d/1A-10TZ8psNMg74tTG-zFBHV7ufaqN81S/view?usp=sharing" target="_blank"
+        >
+          <button v-if="ProjectData.num === '01'" class="custom-btn">
+            Download APK
+          </button>
+        </form>
+      </div>
     </div>
     <div class="fit type">
       <h1 class="anim text-semiBold colored">{{ ProjectData.type }}</h1>
@@ -62,7 +78,7 @@ export default {
   flex-direction: column;
   width: 60%;
   height: 100%;
-  background-color: transparent; 
+  background-color: transparent;
 }
 .text-semiBold {
   font-family: "Bergen Sans Bold";
@@ -159,6 +175,33 @@ export default {
   }
   100% {
     width: 0%;
+  }
+}
+
+.btn-row {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  // background-color: red;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.custom-btn {
+  background-color: transparent;
+  outline: none;
+  border: 2.5px solid $color-text;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "Bergen Sans Regular";
+  font-size: 16px;
+  transition: all 0.4s ease;
+
+  &:hover {
+    background-color: $color-text;
+    color: white;
+    cursor: pointer;
   }
 }
 </style>
