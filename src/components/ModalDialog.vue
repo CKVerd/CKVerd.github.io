@@ -10,6 +10,14 @@
           src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F9EgPSD5f1xUwhsH5CxsMDi%2FPharmFinder%3Fpage-id%3D0%253A1%26node-id%3D2%253A2%26viewport%3D718%252C477%252C0.37%26scaling%3Dmin-zoom%26starting-point-node-id%3D2%253A2"
           allowfullscreen
         ></iframe>
+        <iframe
+          v-if="shownContent === 'Bitnacs'"
+          style="border: 1px solid rgba(0, 0, 0, 0.1)"
+          width="100%"
+          height="100%"
+          src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FleF3xU1fodIYQdDtQKLfBP%2FBitnacs%3Fnode-id%3D0%253A1"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
   </transition>
@@ -21,6 +29,7 @@ export default {
   props: {
     showModal: Boolean,
     content: String,
+    isMobile: Boolean,
   },
   setup(props) {
     const dialog = computed(() => {
@@ -29,9 +38,13 @@ export default {
     const shownContent = computed(() => {
       return props.content;
     });
+    const showBlocker = computed(() => {
+      return props.isMobile;
+    });
     return {
       dialog,
       shownContent,
+      showBlocker,
     };
   },
 };
@@ -68,6 +81,6 @@ export default {
 }
 
 iframe {
-    zoom: 0.75;
+  zoom: 0.75;
 }
 </style>

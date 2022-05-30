@@ -3,12 +3,22 @@
     <div class="hero">
       <h1 class="name">Cyril Verdad</h1>
       <h2 class="desc">Front-end Developer</h2>
-      <button class="custom-btn">View Resume</button>
+      <form
+        action="https://drive.google.com/file/d/1BYjrv0b5u3AYmjlsputzLuuY5FmnUbi-/preview"
+        target="_blank"
+        class="resume-form"
+      >
+        <button class="custom-btn">View Resume</button>
+      </form>
       <div class="white-cover"></div>
       <div class="white-cover-secondary"></div>
     </div>
   </div>
-  <ModalDialog :showModal="showModal" @close="showModal = false" :content="content"/>
+  <ModalDialog
+    :showModal="showModal"
+    @close="showModal = false"
+    :content="content"
+  />
   <div class="container-2" style="justify-content: flex-start">
     <div class="about">
       <span
@@ -31,6 +41,7 @@
           :key="projectKey"
           @forceRerender="forceRerender"
           @showPharmfinder="showPharmfinder"
+          @showBitnacs="showBitnacs"
         />
       </div>
       <div v-else class="inner-project">
@@ -115,6 +126,7 @@
     />
   </div>
   <div class="container"></div>
+  <div v-if="is720" class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_4"></div>
     <img
@@ -134,6 +146,7 @@
     />
   </div>
   <div class="container"></div>
+  <div v-if="isTablet" class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_5"></div>
     <img
@@ -143,6 +156,7 @@
     />
   </div>
   <div class="container"></div>
+  <div v-if="isTablet" class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="end"></div>
   </div>
@@ -159,6 +173,7 @@ export default {
     ModalDialog,
   },
   setup() {
+    const projectWidth = ref(null);
     const content = ref(null);
     const showModal = ref(false);
     const scrollData = ref(null);
@@ -237,15 +252,32 @@ export default {
       }
     });
 
+    const isTablet = computed(() => {
+      if (siteHeight.value <= 900) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    const is720 = computed(() => {
+      if (siteHeight.value <= 720) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
     function handleScroll() {
       scrollValue.value = window.scrollY;
       siteHeight.value = window.innerHeight;
+      projectWidth.value = window.innerWidth;
       // scrollData.value = window.scrollY;
       scrollData.value = scrollValue.value - siteHeight.value - 100;
       // console.log(scrollData.value);
       // scrollData.value = window.scrollY;
       // scrollData.value = (scrollValue + window.innerHeight) / 100;
-
+      // console.log(isTablet.value);
       if (checkVisible(num_1.value)) {
         showProject.value.shown = true;
         showProject.value.project_1 = true;
@@ -294,18 +326,9 @@ export default {
     }
 
     function forceRerender() {
-      // console.log("force render");
       projectKey.value += 1;
     }
 
-    // function checkScroll() {
-    //   if (scrollData.value > 200 && scrollData.value < 300) {
-    //     console.log("this runs")
-    //     return scrollData.value * 0.25;
-    //   } else {
-    //     return 0;
-    //   }
-    // }
     function checkVisible(el) {
       const rect = el.getBoundingClientRect();
       return (
@@ -320,7 +343,12 @@ export default {
 
     function showPharmfinder() {
       showModal.value = true;
-      content.value = "PharmFinder"
+      content.value = "PharmFinder";
+    }
+
+    function showBitnacs() {
+      showModal.value = true;
+      content.value = "Bitnacs";
     }
 
     const checkScroll = computed(() => {
@@ -336,7 +364,6 @@ export default {
         return -200;
       }
     });
-
 
     const foregroundScroll = computed(() => {
       if (siteHeight.value <= 1000) {
@@ -361,6 +388,7 @@ export default {
 
     onMounted(() => {
       window.addEventListener("scroll", handleScroll);
+      handleScroll();
     });
 
     return {
@@ -382,7 +410,11 @@ export default {
       midScroll,
       showModal,
       showPharmfinder,
-      content
+      content,
+      showBitnacs,
+      projectWidth,
+      isTablet,
+      is720,
     };
   },
 };
@@ -450,7 +482,6 @@ export default {
 
 .custom-btn {
   z-index: 2;
-  margin-top: 20px;
   background-color: transparent;
   outline: none;
   border: 2.5px solid $color-text;
@@ -523,13 +554,19 @@ export default {
 
 .contact-text {
   font-family: "Bergen Sans Bold";
-  font-size: 250px;
+    font-size: 200px;
   color: #e6e6e6;
   position: absolute;
   z-index: 1;
 
-  @include breakpoint(mobile) {
-    font-size: 65px;
+  @include breakpoint(tablet) {
+    font-size: 200px;
+  }
+  @include breakpoint(laptop) {
+    font-size: 250px;
+  }
+    @include breakpoint(desktop) {
+    font-size: 250px;
   }
 }
 
@@ -646,6 +683,11 @@ export default {
   display: flex;
   width: 20%;
   justify-content: space-around;
+}
+
+.resume-form {
+  margin-top: 15px;
+  height: 90px;
 }
 
 .contact-button {

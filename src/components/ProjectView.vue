@@ -28,11 +28,39 @@
           View Prototype
         </button>
         <form
-          action="https://drive.google.com/file/d/1A-10TZ8psNMg74tTG-zFBHV7ufaqN81S/view?usp=sharing" target="_blank"
+          v-if="ProjectData.num === '01'"
+          action="https://drive.google.com/file/d/1A-10TZ8psNMg74tTG-zFBHV7ufaqN81S/view?usp=sharing"
+          target="_blank"
         >
-          <button v-if="ProjectData.num === '01'" class="custom-btn">
-            Download APK
-          </button>
+          <button class="custom-btn">Download APK</button>
+        </form>
+        <form
+          v-if="ProjectData.num === '02'"
+          action="https://apps-pappannualconvention2022.com/#/"
+          target="_blank"
+        >
+          <button class="custom-btn">View Website</button>
+        </form>
+        <button
+          v-if="ProjectData.num === '03'"
+          class="custom-btn"
+          @click="$emit('showBitnacs')"
+        >
+          View Mockup
+        </button>
+        <form
+          v-if="ProjectData.num === '04'"
+          action="https://kkrafted.netlify.com"
+          target="_blank"
+        >
+          <button class="custom-btn">View Website</button>
+        </form>
+               <form
+          v-if="ProjectData.num === '05'"
+          action="https://jkgen.netlify.com"
+          target="_blank"
+        >
+          <button class="custom-btn">View Website</button>
         </form>
       </div>
     </div>
@@ -114,17 +142,24 @@ export default {
 .name-text {
   font-size: 64px;
 
-  @include breakpoint(mobile) {
-    font-size: 32;
+  @include breakpoint(tablet) {
+    font-size: 52px;
   }
 }
 
 .role-text {
   font-size: 36px;
+   @include breakpoint(tablet) {
+    font-size: 32px;
+  }
 }
 
 .desc-text {
   font-size: 36px;
+
+  @include breakpoint(tablet) {
+    font-size: 32px;
+  }
 }
 
 .type {
