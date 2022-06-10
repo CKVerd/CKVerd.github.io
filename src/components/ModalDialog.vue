@@ -78,6 +78,10 @@ export default {
   height: 99vh;
   display: grid;
   place-items: center;
+
+  @include breakpoint(mobile) {
+    width: 95%;
+  }
 }
 
 iframe {

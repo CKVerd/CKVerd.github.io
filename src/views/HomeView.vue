@@ -4,7 +4,7 @@
       <h1 class="name">Cyril Verdad</h1>
       <h2 class="desc">Front-end Developer</h2>
       <form
-        action="https://drive.google.com/file/d/1BYjrv0b5u3AYmjlsputzLuuY5FmnUbi-/preview"
+        action="https://drive.google.com/file/d/1hfJO_aypBvYom9R4KQSeNtnkx7VQ8eYM/preview"
         target="_blank"
         class="resume-form"
       >
@@ -83,18 +83,20 @@
     </Transition>
     <img
       src="@/assets/images/pf_1.png"
-      class="phone-foreground"
+      :class="'phone-foreground'"
       :style="`top: ${1000 - foregroundScroll}px`"
     />
     <img
       src="@/assets/images/pf_2.png"
       class="phone-background"
       :style="`top: ${700 - backgroundScroll}px`"
+      v-if="!isTablet"
     />
     <img
       src="@/assets/images/pf_3.png"
       class="phone-mid"
       :style="`top: ${1700 - midScroll}px`"
+      v-if="!isTablet"
     />
   </div>
   <div class="container"></div>
@@ -109,9 +111,11 @@
       src="@/assets/images/PAPP_2.png"
       class="phone-horizontal"
       :style="`top: ${3450 - midScroll}px`"
+      v-if="!isTablet"
     />
   </div>
   <div class="container"></div>
+  <div class="container" v-if="isTablet"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_3"></div>
     <img
@@ -123,6 +127,7 @@
       src="@/assets/images/Bitnacs_2.png"
       class="phone-background"
       :style="`top: ${4500 - midScroll}px`"
+      v-if="!isTablet"
     />
   </div>
   <div class="container"></div>
@@ -133,19 +138,23 @@
       src="@/assets/images/KK_3.png"
       class="ipad-background"
       :style="`top: ${3300 - backgroundScroll}px`"
+      v-if="showProject.shown && !isTablet"
     />
     <img
       src="@/assets/images/KK_2.png"
       class="phone-foreground-1"
       :style="`top: ${4600 - foregroundScroll}px`"
+      v-if="showProject.shown"
     />
     <img
       src="@/assets/images/KK_1.png"
       class="laptop-mid"
       :style="`top: ${6700 - midScroll}px`"
+      v-if="showProject.shown && !isTablet"
     />
   </div>
   <div class="container"></div>
+  <div v-if="isTablet" class="container"></div>
   <div v-if="isTablet" class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_5"></div>
@@ -153,6 +162,7 @@
       src="@/assets/images/joke_1.png"
       class="laptop-mid"
       :style="`top: ${7900 - midScroll}px`"
+      v-if="showProject.shown"
     />
   </div>
   <div class="container"></div>
@@ -442,28 +452,30 @@ export default {
 
 .project {
   width: 100vw;
-  height: 100vh;
+  height: 100vh !important;
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
+  overflow: hidden;
 }
 
 .project-1 {
   width: 100vw;
-  height: 100vh;
+  height: 100vh !important;
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
   z-index: 9999 !important;
+  overflow: hidden;
 }
 
 .name {
   font-family: "Thousand Brights";
   font-size: 164px;
   font-weight: 100;
-  animation: from-bottom 1s ease-in-out;
+  animation: from-bottom 0.8s ease-in-out;
   @include breakpoint(mobile) {
     font-size: 75px;
   }
@@ -472,11 +484,14 @@ export default {
 .desc {
   font-family: "Bergen Sans Regular";
   font-size: 40px;
-  animation: from-bottom 1.75s ease-in-out forwards;
+  animation: from-bottom 0.8s ease-in-out forwards;
+  animation-delay: 0.25s;
   opacity: 0;
   z-index: 2;
+  margin-top: -10px;
   @include breakpoint(mobile) {
     font-size: 24px;
+    margin-top: 0px;
   }
 }
 
@@ -490,9 +505,10 @@ export default {
   font-family: "Bergen Sans Regular";
   font-size: 16px;
   animation: shakeAppear 1.75s ease-in-out forwards;
-  animation-delay: 1s;
+  animation-delay: 0.8s;
   opacity: 0;
   transition: all 0.4s ease;
+  color: black;
 
   &:hover {
     background-color: $color-text;
@@ -546,6 +562,7 @@ export default {
   transform: translateX(-200px);
   transition: 1s;
   transition-delay: 50ms;
+  white-space: nowrap;
 
   @include breakpoint(mobile) {
     font-size: 65px;
@@ -554,7 +571,7 @@ export default {
 
 .contact-text {
   font-family: "Bergen Sans Bold";
-    font-size: 200px;
+  font-size: 200px;
   color: #e6e6e6;
   position: absolute;
   z-index: 1;
@@ -565,7 +582,7 @@ export default {
   @include breakpoint(laptop) {
     font-size: 250px;
   }
-    @include breakpoint(desktop) {
+  @include breakpoint(desktop) {
     font-size: 250px;
   }
 }
@@ -602,18 +619,29 @@ export default {
   padding: 5% 5%;
   // animation: fade-in 0.6s ease-in;
   position: relative;
+  z-index: 1;
 }
 
 .phone-foreground {
   width: 17%;
   position: absolute;
   right: 20.75%;
+
+  @include breakpoint("mobile") {
+    width: 80%;
+    right: -40%;
+  }
 }
 
 .phone-foreground-1 {
   width: 17%;
   position: absolute;
   right: 24.75%;
+
+  @include breakpoint("mobile") {
+    width: 90%;
+    right: -30%;
+  }
 }
 
 .phone-background {
@@ -638,12 +666,22 @@ export default {
   width: 43%;
   position: absolute;
   right: 2.5%;
+
+  @include breakpoint("mobile") {
+    width: 250%;
+    right: -150%;
+  }
 }
 
 .laptop-mid {
   width: 43%;
   position: absolute;
   right: 2.5%;
+
+  @include breakpoint("mobile") {
+    width: 250%;
+    right: -150%;
+  }
 }
 
 .phone-horizontal {

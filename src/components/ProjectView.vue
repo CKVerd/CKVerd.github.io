@@ -1,7 +1,7 @@
 <template>
   <div class="first-half">
     <div class="fit">
-      <h1 class="anim text-semiBold colored">{{ ProjectData.num }}</h1>
+      <h1 class="anim num-text text-semiBold colored">{{ ProjectData.num }}</h1>
     </div>
     <div class="info-container">
       <div class="fit name">
@@ -55,7 +55,7 @@
         >
           <button class="custom-btn">View Website</button>
         </form>
-               <form
+        <form
           v-if="ProjectData.num === '05'"
           action="https://jkgen.netlify.com"
           target="_blank"
@@ -65,7 +65,9 @@
       </div>
     </div>
     <div class="fit type">
-      <h1 class="anim text-semiBold colored">{{ ProjectData.type }}</h1>
+      <h1 class="anim num-text text-semiBold colored">
+        {{ ProjectData.type }}
+      </h1>
     </div>
   </div>
 </template>
@@ -107,6 +109,10 @@ export default {
   width: 60%;
   height: 100%;
   background-color: transparent;
+
+  @include breakpoint(mobile) {
+    width: 100%;
+  }
 }
 .text-semiBold {
   font-family: "Bergen Sans Bold";
@@ -133,6 +139,10 @@ export default {
 
 .role {
   margin-top: 60px;
+
+  @include breakpoint(mobile) {
+    margin-top: 10px;
+  }
 }
 
 .desc {
@@ -142,6 +152,11 @@ export default {
 .name-text {
   font-size: 64px;
 
+  @include breakpoint(mobile) {
+    font-size: 32px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+  }
   @include breakpoint(tablet) {
     font-size: 52px;
   }
@@ -149,7 +164,13 @@ export default {
 
 .role-text {
   font-size: 36px;
-   @include breakpoint(tablet) {
+
+  @include breakpoint(mobile) {
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+  }
+  @include breakpoint(tablet) {
     font-size: 32px;
   }
 }
@@ -157,8 +178,19 @@ export default {
 .desc-text {
   font-size: 36px;
 
+  @include breakpoint(mobile) {
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+  }
   @include breakpoint(tablet) {
     font-size: 32px;
+  }
+}
+
+.num-text {
+  @include breakpoint(mobile) {
+    font-size: 22px;
   }
 }
 
@@ -176,8 +208,10 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  top: 50%;
   background-color: $color-text;
   animation: show 1.5s forwards;
+  transform: translate(0%, -50%);
 }
 
 .p-anim {
@@ -190,9 +224,10 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  top: 50%;
   background-color: $color-text;
   animation: show 1.5s forwards;
-  transform: translateY(-50%);
+  transform: translate(0%, -50%);
 }
 
 .fit {
@@ -232,7 +267,8 @@ export default {
   font-family: "Bergen Sans Regular";
   font-size: 16px;
   transition: all 0.4s ease;
-
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
   &:hover {
     background-color: $color-text;
     color: white;
