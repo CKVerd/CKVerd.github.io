@@ -576,14 +576,21 @@ export default {
   position: absolute;
   z-index: 1;
 
+  @include breakpoint(mobile) {
+    font-size: 72px;
+    margin-top: 50px;
+  }
   @include breakpoint(tablet) {
     font-size: 200px;
+    margin-top: 0px;
   }
   @include breakpoint(laptop) {
     font-size: 250px;
+    margin-top: 0px;
   }
   @include breakpoint(desktop) {
     font-size: 250px;
+    margin-top: 0px;
   }
 }
 
@@ -721,6 +728,10 @@ export default {
   display: flex;
   width: 20%;
   justify-content: space-around;
+
+  @include breakpoint(mobile) {
+    width: 75%;
+  }
 }
 
 .resume-form {
@@ -740,6 +751,9 @@ export default {
     cursor: pointer;
     filter: invert(31%) sepia(7%) saturate(0%) hue-rotate(280deg)
       brightness(99%) contrast(94%);
+  }
+  @include breakpoint(mobile) {
+    padding: 15px;
   }
 }
 
