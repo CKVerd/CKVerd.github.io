@@ -78,7 +78,7 @@
             </button>
           </form>
         </div>
-        <div class="footer">(c) Cyril Verdad 2020</div>
+        <div class="footer">(c) Cyril Verdad 2022</div>
       </div>
     </Transition>
     <img
