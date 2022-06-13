@@ -90,13 +90,13 @@
       src="@/assets/images/pf_2.png"
       class="phone-background"
       :style="`top: ${700 - backgroundScroll}px`"
-      v-if="!isTablet"
+      v-if="!isPhone"
     />
     <img
       src="@/assets/images/pf_3.png"
       class="phone-mid"
       :style="`top: ${1700 - midScroll}px`"
-      v-if="!isTablet"
+      v-if="!isPhone"
     />
   </div>
   <div class="container"></div>
@@ -111,11 +111,11 @@
       src="@/assets/images/PAPP_2.png"
       class="phone-horizontal"
       :style="`top: ${3450 - midScroll}px`"
-      v-if="!isTablet"
+      v-if="!isPhone"
     />
   </div>
   <div class="container"></div>
-  <div class="container" v-if="isTablet"></div>
+  <div class="container" v-if="isPhone"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_3"></div>
     <img
@@ -127,7 +127,7 @@
       src="@/assets/images/Bitnacs_2.png"
       class="phone-background"
       :style="`top: ${4500 - midScroll}px`"
-      v-if="!isTablet"
+      v-if="!isPhone"
     />
   </div>
   <div class="container"></div>
@@ -138,7 +138,7 @@
       src="@/assets/images/KK_3.png"
       class="ipad-background"
       :style="`top: ${3300 - backgroundScroll}px`"
-      v-if="showProject.shown && !isTablet"
+      v-if="showProject.shown && !isPhone"
     />
     <img
       src="@/assets/images/KK_2.png"
@@ -150,23 +150,22 @@
       src="@/assets/images/KK_1.png"
       class="laptop-mid"
       :style="`top: ${6700 - midScroll}px`"
-      v-if="showProject.shown && !isTablet"
+      v-if="showProject.shown && !isPhone"
     />
   </div>
   <div class="container"></div>
-  <div v-if="isTablet" class="container"></div>
   <div v-if="isTablet" class="container"></div>
   <div class="project">
     <div class="hidden-bot" ref="num_5"></div>
     <img
       src="@/assets/images/joke_1.png"
       class="laptop-mid"
-      :style="`top: ${7900 - midScroll}px`"
+      :style="`top: ${7600 - midScroll}px`"
       v-if="showProject.shown"
     />
   </div>
   <div class="container"></div>
-  <div v-if="isTablet" class="container"></div>
+
   <div class="project">
     <div class="hidden-bot" ref="end"></div>
   </div>
@@ -262,8 +261,16 @@ export default {
       }
     });
 
-    const isTablet = computed(() => {
-      if (siteHeight.value <= 900) {
+    const isPhone = computed(() => {
+      if (projectWidth.value <= 900) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+        const isTablet = computed(() => {
+      if (projectWidth.value <= 1300) {
         return true;
       } else {
         return false;
@@ -287,12 +294,13 @@ export default {
       // console.log(scrollData.value);
       // scrollData.value = window.scrollY;
       // scrollData.value = (scrollValue + window.innerHeight) / 100;
-      // console.log(isTablet.value);
+      console.log(isPhone.value);
+      console.log(projectWidth.value)
       if (checkVisible(num_1.value)) {
         showProject.value.shown = true;
         showProject.value.project_1 = true;
       } else {
-        showProject.value.project_1 = false;
+        // showProject.value.project_1 = false;
       }
 
       if (checkVisible(num_2.value)) {
@@ -420,10 +428,11 @@ export default {
       midScroll,
       showModal,
       showPharmfinder,
+      isTablet,
       content,
       showBitnacs,
       projectWidth,
-      isTablet,
+      isPhone,
       is720,
     };
   },
@@ -726,7 +735,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  width: 20%;
+  width: 25%;
   justify-content: space-around;
 
   @include breakpoint(mobile) {
