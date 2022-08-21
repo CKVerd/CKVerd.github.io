@@ -29,7 +29,7 @@
         </button>
         <form
           v-if="ProjectData.num === '01'"
-          action="https://drive.google.com/file/d/1A-10TZ8psNMg74tTG-zFBHV7ufaqN81S/view?usp=sharing"
+          action="https://drive.google.com/file/d/1zgMEKzBljroB1FTooLODk98Cj-HapRrY/view?usp=sharing"
           target="_blank"
         >
           <button class="custom-btn">Download APK</button>
